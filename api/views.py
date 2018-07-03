@@ -68,4 +68,10 @@ class ArticleDetailView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, Deta
 class AreaDetailView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, DetailView):
     model = Area
     static_root = '/static/media/'
-    pk_url_kwarg = 'aid'
+    # pk_url_kwarg = 'aid'
+
+    def get_object(self, queryset=None):
+        objs = self.model.objects.filter(slug=self.site_slug)
+        if objs.exists():
+            return objs[0]
+        return None
