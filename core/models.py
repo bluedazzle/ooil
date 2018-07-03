@@ -25,6 +25,10 @@ class Area(BaseModel):
     def __unicode__(self):
         return self.name
 
+    class Meta:
+        verbose_name = '地区'
+        verbose_name_plural = '地区'
+
 
 class Classification(BaseModel):
     priority_choices = [
@@ -43,6 +47,10 @@ class Classification(BaseModel):
 
     def __unicode__(self):
         return '{0}：{1}'.format(self.belong.name, self.title)
+
+    class Meta:
+        verbose_name = '分类'
+        verbose_name_plural = '分类'
 
 
 class Article(BaseModel):
@@ -71,3 +79,7 @@ class Article(BaseModel):
         if self.cls:
             self.article_type = 1
         return super(Article, self).save(force_insert, force_update, using, update_fields)
+
+    class Meta:
+        verbose_name = '文章'
+        verbose_name_plural = '文章'

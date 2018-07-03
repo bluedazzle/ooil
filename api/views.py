@@ -15,6 +15,7 @@ from core.models import *
 class IndexArticleListView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, ListView):
     model = Article
     static_root = '/static/media/'
+    exclude_attr = ['content']
 
     def get(self, request, *args, **kwargs):
         keyword = self.request.GET.get('keyword', None)
@@ -35,6 +36,7 @@ class ArticleListView(CheckSiteMixin, StatusWrapMixin, MultipleJsonResponseMixin
     model = Article
     paginate_by = 100
     static_root = '/static/media/'
+    exclude_attr = ['content']
 
     def get_queryset(self):
         # cid = self.request.GET.get

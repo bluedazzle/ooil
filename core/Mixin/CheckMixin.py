@@ -163,10 +163,10 @@ class CheckSiteMixin(object):
         self.status_code = ERROR_PERMISSION_DENIED
         return self.render_to_response()
 
-    def get_queryset(self):
-        queryset = super(CheckSiteMixin, self).get_queryset()
-        queryset = queryset.filter(belong=self.site)
-        return queryset
+    # def get_queryset(self):
+    #     queryset = super(CheckSiteMixin, self).get_queryset()
+    #     queryset = queryset.filter(belong=self.site)
+    #     return queryset
 
     def render_to_response(self, context={}, **response_kwargs):
         resp = super(CheckSiteMixin, self).render_to_response(context, **response_kwargs)
