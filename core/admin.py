@@ -9,6 +9,19 @@ class ArticleAdmin(admin.ModelAdmin):
         form = super(ArticleAdmin, self).get_form(request, obj, **kwargs)
         return form
 
-admin.site.register(Area)
+
+class AreaAdmin(admin.ModelAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = ("create_time", 'modify_time', 'original_create_time')
+        form = super(AreaAdmin, self).get_form(request, obj, **kwargs)
+        return form
+
+class ClassificationAdmin(admin.ModelAdmin):
+    def get_form(self, request, obj=None, **kwargs):
+        self.exclude = ("create_time", 'modify_time', 'article_type', 'original_create_time')
+        form = super(ClassificationAdmin, self).get_form(request, obj, **kwargs)
+        return form
+
+admin.site.register(Area, AreaAdmin)
 admin.site.register(Article, ArticleAdmin)
-admin.site.register(Classification)
+admin.site.register(Classification, ClassificationAdmin)

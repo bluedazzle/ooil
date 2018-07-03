@@ -183,3 +183,41 @@ GET /api/v1/article/{aid}/
   "msg": "数据缺失"
 }
 ```
+
+## **地区详情**
+
+```
+GET /api/v1/area/
+```
+
+### **Parameters**
+* token(_Required_|string)-站点
+
+### **Return**
+
+成功
+```
+{
+    "body":{
+        "area":{
+            "name":"测试地区",
+            "original_create_time":"2018-07-03 11:44:00",
+            "id":1,
+            "create_time":"2018-07-03 11:44:00",
+            "modify_time":"2018-07-03 11:44:39",
+            "banner":"/static/media/http://ktv.fibar.cn/s/image/avatar.png",
+            "slug":"test"
+        }
+    },
+    "status":1,
+    "msg":"success"
+}
+```
+失败
+```
+{
+  "body": {},
+  "status": 4,
+  "msg": "数据缺失"
+}
+```

@@ -18,9 +18,10 @@ class BaseModel(models.Model):
 
 
 class Area(BaseModel):
-    name = models.CharField(max_length=50)
-    slug = models.CharField(max_length=50, unique=True)
-    banner = models.ImageField(max_length=256, default='', null=True, blank=True, upload_to='banners')
+    name = models.CharField(max_length=50, verbose_name='地区名称')
+    slug = models.CharField(max_length=50, unique=True, verbose_name='唯一识别码')
+    banner = models.ImageField(max_length=256, default='', null=True, blank=True, upload_to='banners',
+                               verbose_name='地区封面图')
 
     def __unicode__(self):
         return self.name
@@ -38,12 +39,13 @@ class Classification(BaseModel):
         (3, '高优'),
         (4, '最高优'),
     ]
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=100, null=True, blank=True, default='')
-    picture = models.ImageField(max_length=256, null=True, blank=True, default='', upload_to='banners')
-    priority = models.IntegerField(default=0, choices=priority_choices)
+    title = models.CharField(max_length=100, verbose_name='分类标题')
+    description = models.CharField(max_length=100, null=True, blank=True, default='', verbose_name='分类描述（选填）')
+    picture = models.ImageField(max_length=256, null=True, blank=True, default='', upload_to='banners',
+                                verbose_name='分类封面图')
+    priority = models.IntegerField(default=0, choices=priority_choices, verbose_name='分类优先级')
     article_type = models.IntegerField(default=1)
-    belong = models.ForeignKey(Area, related_name='area_fir_cls')
+    belong = models.ForeignKey(Area, related_name='area_fir_cls', verbose_name='分类属于')
 
     def __unicode__(self):
         return '{0}：{1}'.format(self.belong.name, self.title)
@@ -62,11 +64,12 @@ class Article(BaseModel):
         (4, '最高优'),
     ]
     title = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name='标题')
-    picture = models.ImageField(max_length=256, null=True, blank=True, default='', upload_to='banners', verbose_name='标题图片')
+    picture = models.ImageField(max_length=256, null=True, blank=True, default='', upload_to='banners',
+                                verbose_name='标题图片')
     author = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name='作者')
     content = RichTextUploadingField(default='', null=True, blank=True, verbose_name='正文')
     priority = models.IntegerField(default=0, verbose_name='优先级', choices=priority_choices)
-    article_type = models.IntegerField(default=0) # 0 一级文章 1 二级文章
+    article_type = models.IntegerField(default=0)  # 0 一级文章 1 二级文章
     belong = models.ForeignKey(Area, related_name='area_articles', verbose_name='属于')
     cls = models.ForeignKey(Classification, related_name='cls_articles', null=True, blank=True,
                             on_delete=models.SET_NULL, verbose_name='分类')
