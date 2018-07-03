@@ -20,6 +20,7 @@ class JsonResponseMixin(object):
     datetime_type = 'string'
     foreign = False
     many = False
+    static_root = None
     include_attr = []
     exclude_attr = []
 
@@ -44,6 +45,7 @@ class JsonResponseMixin(object):
                           many=self.many,
                           include_attr=self.include_attr,
                           exclude_attr=self.exclude_attr,
+                          static_root=self.static_root,
                           dict_check=True)
     @staticmethod
     def json_serializer(context):

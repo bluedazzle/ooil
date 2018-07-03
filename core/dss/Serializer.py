@@ -32,7 +32,7 @@ class Serializer(object):
     many = False
 
     def __init__(self, data, datetime_format='timestamp', output_type='raw', include_attr=None, exclude_attr=None,
-                 foreign=False, many=False, *args, **kwargs):
+                 foreign=False, many=False, static_root=None, *args, **kwargs):
         if include_attr:
             self.include_attr = include_attr
         if exclude_attr:
@@ -41,6 +41,7 @@ class Serializer(object):
         self.output_type = output_type
         self.foreign = foreign
         self.many = many
+        self.static_root = static_root
         self.datetime_format = datetime_format
         self.time_func = TimeFormatFactory.get_time_func(datetime_format)
         self._dict_check = kwargs.get('dict_check', False)
@@ -84,6 +85,8 @@ class Serializer(object):
                 return self.time_func(data, time_format='%H:%M:%S')
             return self.time_func(data, time_format='%Y-%m-%d %H:%M:%S')
         elif isinstance(data, (ImageFieldFile, FileField)):
+            if self.static_root:
+                return '{0}{1}'.format(self.static_root, data.name)
             return data.name
         elif isinstance(data, Decimal):
             return float(data)
@@ -117,7 +120,7 @@ class Serializer(object):
 
 
 def serializer(data, datetime_format='timestamp', output_type='raw', include_attr=None, exclude_attr=None,
-               foreign=False, many=False, *args, **kwargs):
+               foreign=False, many=False, static_root=None, *args, **kwargs):
     s = Serializer(data, datetime_format, output_type, include_attr, exclude_attr,
-                   foreign, many, *args, **kwargs)
+                   foreign, many, static_root, *args, **kwargs)
     return s()
