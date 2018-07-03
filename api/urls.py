@@ -19,6 +19,6 @@ from api.views import *
 urlpatterns = [
     url(r'^articles/$', IndexArticleListView.as_view()),
     url(r'^classification/(?P<cid>(\w)+)/articles/$', ArticleListView.as_view()),
-    url(r'^article/(?P<aid>(\w)+)/', ArticleDetailView.as_view()),
-    url(r'^area/(?P<aid>(\w)+)/', AreaDetailView.as_view()),
+    url(r'^article/(?P<aid>(\w)+)/$', ArticleDetailView.as_view()),
+    url(r'^area/$', AreaDetailView.as_view()),
 ]
