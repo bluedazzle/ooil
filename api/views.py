@@ -85,6 +85,7 @@ class SignatureView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, DetailVi
         url = request.GET.get('url')
         wc = WeChatService(self.site.wx_app_id, self.site.wx_secret)
         res = wc.get_js_signature(url)
+        res.update({'app_id': self.site.wx_app_id})
         return self.render_to_response(res)
 
 
