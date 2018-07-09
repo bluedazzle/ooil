@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
+from api.wx import WeChatService
 from core.Mixin.CheckMixin import CheckSiteMixin
 from core.Mixin.StatusWrapMixin import StatusWrapMixin
 from core.dss.Mixin import MultipleJsonResponseMixin, JsonResponseMixin
@@ -75,3 +76,15 @@ class AreaDetailView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, DetailV
         if objs.exists():
             return objs[0]
         return None
+
+
+class SignatureView(CheckSiteMixin, StatusWrapMixin, JsonResponseMixin, DetailView):
+    model = Area
+
+    def get(self, request, *args, **kwargs):
+        url = request.GET.get('url')
+        wc = WeChatService(self.site.wx_app_id, self.site.wx_secret)
+        res = wc.get_js_signature(url)
+        return self.render_to_response(res)
+
+

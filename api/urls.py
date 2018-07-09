@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^classification/(?P<cid>(\w)+)/articles/$', ArticleListView.as_view()),
     url(r'^article/(?P<aid>(\w)+)/$', ArticleDetailView.as_view()),
     url(r'^area/$', AreaDetailView.as_view()),
+    url(r'^signature/$', SignatureView.as_view()),
 ]
