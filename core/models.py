@@ -18,6 +18,7 @@ class BaseModel(models.Model):
 
 
 class Area(BaseModel):
+    title = models.CharField(max_length=100, default='', verbose_name='网页标题')
     name = models.CharField(max_length=50, verbose_name='地区名称')
     slug = models.CharField(max_length=50, unique=True, verbose_name='唯一识别码')
     banner = models.ImageField(max_length=256, default='', null=True, blank=True, upload_to='banners',
@@ -66,6 +67,7 @@ class Article(BaseModel):
         (4, '最高优'),
     ]
     title = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name='标题')
+    description = models.CharField(max_length=200, default='', null=True, blank=True, verbose_name='简介')
     picture = models.ImageField(max_length=256, null=True, blank=True, default='', upload_to='banners',
                                 verbose_name='标题图片')
     author = models.CharField(max_length=50, default='', null=True, blank=True, verbose_name='作者')
