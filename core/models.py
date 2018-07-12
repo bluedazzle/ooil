@@ -23,6 +23,7 @@ class Area(BaseModel):
     slug = models.CharField(max_length=50, unique=True, verbose_name='唯一识别码')
     banner = models.ImageField(max_length=256, default='', null=True, blank=True, upload_to='banners',
                                verbose_name='地区封面图')
+    description = models.CharField(max_length=100, default='', null=True, blank=True, verbose_name='摘要')
     wx_app_id = models.CharField(max_length=64, null=True, blank=True)
     wx_secret = models.CharField(max_length=256, null=True, blank=True)
 
